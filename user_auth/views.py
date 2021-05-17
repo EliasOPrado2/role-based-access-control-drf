@@ -32,12 +32,13 @@ class UserAuthViewSet(ModelViewSet):
 class LoginView(ViewSet):
     serializer_class = AuthTokenSerializer
 
+    @staticmethod
     def create(request):
         return ObtainAuthToken().post(request)
 
 
 class LogoutView(APIView):
     def get(self, request, format=None):
-        request.user_auth.auth_token.delete()
+        request.user.auth_token.delete()
         return Response(status=status.HTTP_200_OK)
 
