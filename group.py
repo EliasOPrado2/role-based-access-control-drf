@@ -9,8 +9,8 @@ django.setup()
 from django.contrib.auth.models import Group
 
 # set the groups
-GROUPS = ['admin', 'anonymous']
-MODELS = ['user_auth']
+GROUPS = ['admin', 'ensurer']
+MODELS = ['user']
 
 for group in GROUPS:
     new_group, created = Group.objects.get_or_create(name=group)

@@ -6,14 +6,14 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.viewsets import ViewSet, ModelViewSet
 from rest_framework.permissions import AllowAny
-from .permission import IsAdminUser, IsLoggedInUserAuthOrAdmin, IsAdminOrAnonymousUser
-from .models import UserAuth
-from .serializers import UserAuthSerializer
+from .permission import IsAdminUser, IsLoggedInUserOrAdmin, IsAdminOrAnonymousUser
+from .models import User
+from .serializers import UserSerializer
 
 
-class UserAuthViewSet(ModelViewSet):
-    queryset = UserAuth.objects.all()
-    serializer_class = UserAuthSerializer
+class UserViewSet(ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
     authentication_classes = [TokenAuthentication]
 
     def get_permissions(self):
@@ -23,9 +23,9 @@ class UserAuthViewSet(ModelViewSet):
         elif self.action == 'list':
             permission_classes = [IsAdminOrAnonymousUser]
         elif self.action == 'retrieve' or self.action == 'update' or self.action == 'partial_update':
-            permission_classes = [IsLoggedInUserAuthOrAdmin]
+            permission_classes = [IsLoggedInUserOrAdmin]
         elif self.action == 'destroy':
-            permission_classes = [IsLoggedInUserAuthOrAdmin]
+            permission_classes = [IsLoggedInUserOrAdmin]
         return [permission() for permission in permission_classes]
 
 

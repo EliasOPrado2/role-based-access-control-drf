@@ -1,10 +1,13 @@
 from rest_framework.serializers import ModelSerializer
-from .models import UserAuth
+from .models import User
 
-class UserAuthSerializer(ModelSerializer):
+class UserSerializer(ModelSerializer):
     class Meta:
         fields = (
             'id',
+            'last_login',
+            'is_staff',
+            'is_superuser',
             'first_name',
             'last_name',
             'username',
@@ -12,13 +15,13 @@ class UserAuthSerializer(ModelSerializer):
             'groups',
             'email'
         )
-        model = UserAuth
+        model = User
         extra_kwargs = {'password':{'write_only': True}}
 
     def create(self, validate_data):
-        user_auth = UserAuth.objects.create(**validate_data)
-        user_auth.set_password(validate_data['password'])
-        user_auth.is_staff = True
-        user_auth.save()
+        user = User.objects.create(**validate_data)
+        user.set_password(validate_data['password'])
+        user.is_staff = True
+        user.save()
 
-        return user_auth
+        return user

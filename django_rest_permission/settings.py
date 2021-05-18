@@ -40,11 +40,11 @@ INSTALLED_APPS = [
 
     'rest_framework',  #this line need to be managed as package 
     'rest_framework.authtoken',  #this line need to be managed as package 
-    'user_auth'  #this line need to be managed as package 
+    'user'  #this line need to be managed as package 
 ]
 
 # the name of the app + the models name
-AUTH_USER_MODEL = 'user_auth.UserAuth' #this line need to be managed as package
+AUTH_USER_MODEL = 'user.User' #this line need to be managed as package
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
